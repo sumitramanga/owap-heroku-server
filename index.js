@@ -19,9 +19,9 @@ app.use(function(req,res,next){
 });
 
 app.get('/', function(req, res){
-	// res.writeHead(302, {'Location': 'https://owap-app.herokuapp.com'});
-	// console.log('Redirect to React server https://owap-app.herokuapp.com');
-    res.end('Welcome to the api');
+	res.writeHead(302, {'Location': 'https://owap-app.herokuapp.com'});
+	console.log('Redirect to React server https://owap-app.herokuapp.com');
+    // res.end('Welcome to the api');
 })
 
 // Behance request for userdata
@@ -79,7 +79,11 @@ app.get(`/behance/project/:project/comments/:page`, function(req,res){
 	});
 })
 
-app.set('port', (process.env.PORT || 3000));
+// Routes for data requests
+app.use(`/data`, express.static(path.join(__dirname, `data`)));
+
+app.set('port', (process.env.PORT || 4000));
+
 app.listen(app.get('port'), function(){
     console.log('Server is running on port '+app.get('port'));
 })
