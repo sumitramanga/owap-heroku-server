@@ -13,15 +13,33 @@ app.use(cors());
 const behance = new Behance({'client_id': `${process.env.behanceKey}`});
 Behance.initOptions();
 
-app.get('/', function(req, res){
-	res.writeHead(302, {'Location': 'https://owap-app.herokuapp.com'});
-	console.log('Redirect to React server https://owap-app.herokuapp.com');
-    res.end('Welcome to the api');
-})
-
 app.use(function(req,res,next){
 	console.log(`${req.method} request for ${req.url}`);
 	next();
+});
+
+app.get('/', function(req, res){
+	// res.writeHead(302, {'Location': 'https://owap-app.herokuapp.com'});
+	// console.log('Redirect to React server https://owap-app.herokuapp.com');
+    res.end('Welcome to the api');
+})
+
+// Behance request for userdata
+app.get(`/behance/user/:user`, function(req,res){
+	behance.get({
+		api: Behance.APIS.GET_USER,
+		params: {
+			user: req.params.user
+		}
+	}, function(err, response){
+		// Set the header to specify JSON content
+		res.setHeader('Content-Type', 'application/json');
+		if(err){
+			res.send(err);
+		} else{
+			res.send(response);
+		}
+	})
 });
 
 app.set('port', (process.env.PORT || 3000));
