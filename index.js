@@ -42,6 +42,24 @@ app.get(`/behance/user/:user`, function(req,res){
 	})
 });
 
+// Behance request for user project data
+app.get(`/behance/user/:user/projects`, function(req,res){
+	behance.get({
+		api: Behance.APIS.GET_USER_PRODUCT,
+		params: {
+			user: req.params.user
+		}
+	}, function(err, response){
+		// Set the header to specify JSON content
+		res.setHeader('Content-Type', 'application/json');
+		if(err){
+			res.send(err);
+		} else{
+			res.send(response);
+		}
+	})
+});
+
 app.set('port', (process.env.PORT || 3000));
 app.listen(app.get('port'), function(){
     console.log('Server is running on port '+app.get('port'));
