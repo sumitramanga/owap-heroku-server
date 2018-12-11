@@ -19,9 +19,9 @@ app.use(function(req,res,next){
 });
 
 app.get('/', function(req, res){
-	res.writeHead(302, {'Location': 'https://owap-app.herokuapp.com'});
-	console.log('Redirect to React server https://owap-app.herokuapp.com');
-    // res.end('Welcome to the api');
+	// res.writeHead(302, {'Location': 'https://owap-app.herokuapp.com'});
+	// console.log('Redirect to React server https://owap-app.herokuapp.com');
+    res.end('Welcome to the api');
 })
 
 // Behance request for userdata
